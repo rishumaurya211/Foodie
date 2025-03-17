@@ -15,13 +15,14 @@ const ExploreMenu = ({ category, setCategory }) => {
         {menu_list.map((item, index) => {
           return (
             <div
+              className="explore-menu-list-item"
               onClick={() =>
                 setCategory((pre) =>
                   pre === item.menu_name ? "All" : item.menu_name
                 )
               }
               key={index}
-              //   className="explore-menu-list"
+              // className="explore-menu-list"
             >
               <img
                 className={category === item.menu_name ? "active" : ""}

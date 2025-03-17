@@ -27,10 +27,10 @@ const Navbar = ({ setShowLogin }) => {
       <ul className="navabar-menu">
         <Link
           to="/"
-          onClick={() => setMenu("home")}
-          className={menu === "home" ? "active" : ""}
+          onClick={() => setMenu("Home")}
+          className={menu === "Home" ? "active" : ""}
         >
-          home
+          Home
         </Link>
         <a
           href="#explore-menu"
@@ -54,28 +54,55 @@ const Navbar = ({ setShowLogin }) => {
           contact us
         </a>
       </ul>
+
+      {/* Veg / Non-Veg Filter
+      <div className="filter-buttons">
+        <button
+          className="filter-btn all"
+          onClick={() => setCategoryFilter("")}
+        >
+          All
+        </button>
+        <button
+          className="filter-btn veg"
+          onClick={() => setCategoryFilter("veg")}
+        >
+          🟢 Veg
+        </button>
+        <button
+          className="filter-btn non-veg"
+          onClick={() => setCategoryFilter("non-veg")}
+        >
+          🔴 Non-Veg
+        </button>
+      </div> */}
+
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
-        <div className="navbar-search-icon">
+        <img src={assets.search_icon} alt="Search" className="icon" />
+
+        <div className="navbar-cart">
           <Link to="/cart">
-            {" "}
-            <img src={assets.basket_icon} alt="" />
+            <img src={assets.basket_icon} alt="Cart" className="icon" />
           </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+          <div className={getTotalCartAmount() === 0 ? "" : "cart-dot"}></div>
         </div>
+
+        {/* Login / Profile */}
         {!token ? (
-          <button onClick={() => setShowLogin(true)}>Sign In</button>
+          <button className="login-btn" onClick={() => setShowLogin(true)}>
+            Sign In
+          </button>
         ) : (
           <div className="nav-profile">
-            <img src={assets.profile_icon} alt="" />
+            <img src={assets.profile_icon} alt="Profile" className="icon" />
             <ul className="nav-profile-dropdown">
               <li>
-                <img src={assets.bag_icon} alt="" />
-                <p>Order</p>
+                <img src={assets.bag_icon} alt="Orders" />
+                <p>Orders</p>
               </li>
               <hr />
               <li onClick={logout}>
-                <img src={assets.logout_icon} alt="" />
+                <img src={assets.logout_icon} alt="Logout" />
                 <p>LogOut</p>
               </li>
             </ul>

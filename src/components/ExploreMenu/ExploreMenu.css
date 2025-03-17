@@ -20,6 +20,7 @@
   margin: 20px 0px;
   overflow-x: scroll;
 }
+/* help to hide the scroll bar */
 .explore-menu-list::-webkit-scrollbar {
   display: none;
 }
