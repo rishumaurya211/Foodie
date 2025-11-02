@@ -40,9 +40,7 @@
   justify-content: space-between;
   color: #555;
 }
-.cart-total hr {
-  margin: 10px 0px;
-}
+
 .cart-total button {
   border: none;
   color: white;
@@ -80,11 +78,11 @@
   color: white;
   border-radius: 4px;
 }
-@media (max-width:750px){
-    .cart-bottom{
-        flex-direction: column-reverse;
-    }
-    .cart-promo-cod{
-        justify-content: start;
-    }
+@media (max-width: 750px) {
+  .cart-bottom {
+    flex-direction: column-reverse;
+  }
+  .cart-promo-cod {
+    justify-content: start;
+  }
 }

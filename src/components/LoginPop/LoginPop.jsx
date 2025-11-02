@@ -3,11 +3,15 @@ import "./LoginPop.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPop = ({ setShowLogin }) => {
   const { url, setToken } = useContext(StoreContext);
 
   const [currState, setCurrState] = useState("Login");
+
+  const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -22,35 +26,69 @@ const LoginPop = ({ setShowLogin }) => {
   };
   const onLogin = async (event) => {
     event.preventDefault();
-    let newUrl = url;
-    if (currState === "Login") {
-      newUrl += "/api/user/login";
-    } else {
-      newUrl += "/api/user/register";
-    }
+    setLoading(true);
+    // toast.info("Processing...");
+
+    let endpoint =
+      currState === "Login" ? "/api/user/login" : "/api/user/register";
 
     try {
-      const response = await axios.post(newUrl, data);
+      const response = await axios.post(`${url}${endpoint}`, data);
 
       if (response.data.success) {
+        toast.success(
+          currState === "Login" ? "Login Successful!" : "Account Created!"
+        );
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
-        setShowLogin(false);
 
-        // Clear sensitive data from state
-        setData({
-          name: "",
-          email: "",
-          password: "",
-        });
+        // Close the login popup after a delay
+        setTimeout(() => setShowLogin(false), 2000);
+
+        // Clear input fields
+        setData({ name: "", email: "", password: "" });
       } else {
-        alert(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
+      toast.error("An error occurred. Please try again.");
       console.error("Error during login/register:", error);
-      alert("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  // const onLogin = async (event) => {
+  //   event.preventDefault();
+  //   let newUrl = url;
+  //   if (currState === "Login") {
+  //     newUrl += "/api/user/login";
+  //   } else {
+  //     newUrl += "/api/user/register";
+  //   }
+
+  //   try {
+  //     const response = await axios.post(newUrl, data);
+
+  //     if (response.data.success) {
+  //       setToken(response.data.token);
+  //       localStorage.setItem("token", response.data.token);
+  //       setShowLogin(false);
+
+  //       // Clear sensitive data from state
+  //       setData({
+  //         name: "",
+  //         email: "",
+  //         password: "",
+  //       });
+  //     } else {
+  //       alert(response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during login/register:", error);
+  //     alert("An error occurred. Please try again.");
+  //   }
+  // };
 
   // const onLogin = async (event) => {
   //   event.preventDefalut();
@@ -129,6 +167,9 @@ const LoginPop = ({ setShowLogin }) => {
           </p>
         )}
       </form>
+      <div>
+        <ToastContainer position="top-left" autoClose={3000} />
+      </div>
     </div>
   );
 };

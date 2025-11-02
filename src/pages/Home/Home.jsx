@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 import AppDownload from "../../components/AppDownload/AppDownload";
+// import FoodSlider from "../../components/FoodSlider/Foodslider";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -11,6 +12,7 @@ const Home = () => {
   return (
     <div>
       <Header />
+      {/* <FoodSlider /> */}
       <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDisplay category={category} />
       <AppDownload />
